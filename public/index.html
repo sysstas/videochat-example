@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat Room</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css">
+    <script src="https://cdn.socket.io/4.6.0/socket.io.min.js" integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+" crossorigin="anonymous" defer></script>
+    <script src="client.js" defer></script>
+
+</head>
+<body>
+    <div id="videos">
+        <video id="user-1" class="video-player" autoplay playsinline style="transform: scaleX(-1);"></video>
+        <video id="user-2" class="video-player" autoplay playsinline></video>
+    </div>
+    <div id="controls">
+
+        <div class="control-container" id="camera-btn">
+            <img src="./icons/camera.png" />
+        </div>
+
+        <div class="control-container" id="mic-btn">
+            <img src="./icons/mic.png" />
+        </div>
+
+        <a href="lobby.html">
+            <div class="control-container" id="leave-btn">
+                <img src="./icons/phone.png" />
+            </div>
+        </a>
+
+    </div>
+</body>
+</html>

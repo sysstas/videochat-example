@@ -1,78 +1,47 @@
-const express = require('express');
-const app = express();
-const server = require('http').Server(app);
-const io = require('socket.io')(server, {
-    cors: {
-        origin: "*", // Allow all origins or you can set specific origin like "http://localhost:3000"
-        methods: ["GET", "POST"], // Allow GET and POST methods
-        allowedHeaders: ["my-custom-header"],
-    }
-});
-// const { v4: uuidV4 } = require('uuid');
+// const {Server} = require("socket.io");
+// const io =  new Server(3000, {
+//     cors: {
+//         origin: "*", // Allow all origins or you can set specific origin like "http://localhost:3000"
+//         methods: ["GET", "POST"], // Allow GET and POST methods
+//     }
+// });
+
+// console.log('starting server');
+
+// const users = {};
+
+// io.on('connection', socket=>{
+//     console.log('Connection');
+
+//     socket.on('join-room', (roomId, userId) => {
+//         console.log('join room', roomId, userId);
+//         socket.join(roomId);
+//         socket.to(roomId).emit('user-connected', userId)
+//         users[userId] = socket;
 //
-// app.set('view engine', 'ejs');
-// app.use(express.static('public'));
+//         socket.on('disconnect', ()=> {
+//             socket.to(roomId).emit('user-disconnected', userId)
+//             delete users[userId]
+//         })
+//     })
 
-let users = {};  // To store all connected users
+//     socket.on('offer', (offer, receiverId, senderId)=> {
+//         console.log('offer', receiverId, senderId);
+//         let recipientSocket = users[receiverId];
+//         recipientSocket.emit('offer', {offer, senderId})
+//     })
+
+//     socket.on('answer', (answer, receiverId) => {
+//         console.log('answer', receiverId);
+//         let recipientSocket = users[receiverId];
+//         recipientSocket.emit('answer', answer);
+//     })
+
+//     socket.on('candidate', (candidate, receiverId) => {
+//         console.log('candidate', receiverId);
+//         let recipientSocket = users[receiverId];
+//         recipientSocket.emit('candidate', candidate);
+//     })
 
 
-// app.get('/', (req, res) => {
-//     res.redirect(`/${uuidV4()}`)
 // })
-//
-// app.get('/:room', (req, res) => {
-//     res.render('room', {roomId: req.params.room})
-// })
-
-io.on('connection', socket => {
-    console.log('connection');
-    console.log('users', Object.keys(users));
-    socket.on('join-room', (roomId, userId) => {
-        console.log('roomId', roomId);
-        console.log('userId', userId);
-        socket.join(roomId);
-        users[userId] = socket;
-
-        socket.to(roomId).emit('user-connected', userId);
-        socket.on('disconnect', ()=> {
-            socket.to(roomId).emit('user-disconnected', userId)
-            delete users[userId]
-        })
-
-    })
-    socket.on('offer', (offerMessage, userId, senderId) => {
-        console.log('userId', userId);
-        console.log('offerMessage');
-        let recipientSocket = users[userId];
-        if (recipientSocket) {
-            console.log('Emitting offer to recipient');
-            recipientSocket.emit('offer', {offer:offerMessage, userId:senderId});
-        } else {
-            console.log('No recipient to send offer to');
-        }
-    });
-    socket.on('answer', (answerMessage, userId) => {
-        console.log('userId', userId);
-        console.log('answerMessage');
-        let recipientSocket = users[userId];
-        if (recipientSocket) {
-            console.log('Emitting answer to recipient');
-            recipientSocket.emit('answer', {answer:answerMessage, userId:userId});
-        } else {
-            console.log('No recipient to send answer to');
-        }
-    });
-    socket.on('candidate', (candidate, userId) => {
-        console.log('userId', userId);
-        console.log('candidate');
-        let recipientSocket = users[userId];
-        if (recipientSocket) {
-            console.log('Emitting candidate to recipient');
-            recipientSocket.emit('candidate', {candidate:candidate, userId:userId});
-        } else {
-            console.log('No recipient to send candidate to');
-        }
-    });
-})
-
-server.listen(3000)

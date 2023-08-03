@@ -15,18 +15,17 @@ body{
 }
 
 
-#form__container__header {
+#form-header {
     border-radius: 10px 10px 0 0;
     padding: 30px;
     text-align: center;
     background-color: #363739;
     margin: 0;
     font-size: 18px;
-    font-size: 300;
     line-height: 0;
 }
 
-#form__content__wrapper{
+#form-wrapper{
     padding: 20px;
 }
 
@@ -34,17 +33,15 @@ input {
     box-sizing: border-box;
     color: #fff;
     width: 100%;
-    margin: 0;
+    margin: 32px 0 0 0;
     border: none;
     border-radius: 5px;
     padding: 16px 20px;
     font-size: 15px;
     background-color: #3f434a;
-    margin-top: 32px;
 }
 
 
 input[type='submit'] {
     background-color: #845695;
-
 }
